@@ -1,0 +1,46 @@
+Hotel Management System - Beta 0.1 - made as a junior project for learning API, Databases, project structures and everything what comes with it.
+
+-------
+
+database.py:
+Has 3 tables (classes)
+ - Hotel (for created hotel rooms)
+ - Reservations (for made reservations)
+ - CancelReservations (for cancelled reservations)
+for those were used 2 ForeignKeys that are reffering from Reservations and CancelReservations to Hotel.ID
+
+beside these tables there is also a structure of database (sqlite3) 
+and get_db function made for safe opening connection, connecting and closing connection with database
+this function opens db for endpoint and closes after end of function
+
+models.py:
+made with pydantic to prevent user from making an invalid input
+has 4 classes (3 reffering to database.py and one made for checking availability of the rooms)
+
+pydantic helped with defining the type of arguments and possible inputs -->
+-->defining defaul value, making patterns of string
+
+crud.py
+functionality of entire app, functions working with database and being controlled by pydantic
+has 4 functions:
+- add hotel room
+- make reservation
+- cancel reservation
+- show available room 
+these functions are very well named and i m sure its obvious what they do
+
+in functions try/except was used in case of preventing from making unsecure or unwanted changes in database
+if function works properly it gives simple message that user sees, if not properly then there is an error message
+error message in exception is for programmer and he decides if it will be shown to user or not (packing to HTTPException and defining status code)
+
+main.py
+place where api connects with code and database
+has only defined four endpoints - 3xpost nad 1xget which defines how api works and what user can do
+using Depends(get_db) for opening and closing session automatically and not having to do this on your own every time
+even if the connection break thru some reason it guarantee that db will be closed and not stopped or "infected"
+
+----------
+
+whole hotel management was made for educational reason, i tried to understand how api works, what is database really used for in "production"
+and how to make website correspond with database and user inputs
+there were no frontend made (in streamlit or anything), might be in next versions (maybe)
